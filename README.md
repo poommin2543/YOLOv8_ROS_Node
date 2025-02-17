@@ -36,7 +36,7 @@ cd yolov8_ros
 
 ### 2. Run the YOLOv8 Node
 ```bash
-python yolov8_ros.py
+python yolotoros.py
 ```
 
 ### 3. ROS Topics Published
@@ -53,6 +53,23 @@ The `YOLOv8Node` class initializes the ROS node, captures video frames, runs inf
   {"x1": 300, "y1": 100, "x2": 400, "y2": 200, "confidence": 0.92, "class_id": 1}
 ]
 ```
+
+## 4. Running the Rover Control Node
+The **RoverControlNode** subscribes to the YOLOv8 detection results and controls the movement of a rover based on the detected target.
+
+### **How it Works**
+- The node subscribes to the **`/yolov8/detections`** topic to receive object detection data.
+- It processes the bounding box coordinates and determines whether the rover should move forward, backward, left, or right.
+- The movement commands are published to the **`/cmd_vel`** topic, which controls the rover’s motion.
+
+### **Run the Rover Control Node**
+```bash
+python cmdvel.py
+```
+
+### **ROS Topics Used**
+- **Subscribed:** `/yolov8/detections` – Receives detection data from YOLOv8
+- **Published:** `/cmd_vel` – Sends velocity commands to the rover
 
 ## Stopping the Node
 Press `Ctrl + C` in the terminal or press `q` in the OpenCV display window to exit.
